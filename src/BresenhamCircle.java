@@ -1,11 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Scanner;
 
 public class BresenhamCircle extends JPanel {
 
     private int centerX = 250;
     private int centerY = 250;
-    private int radius = 100;
+    private int radius;
+
+    public BresenhamCircle(int radius) {
+        this.radius = radius;
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -35,7 +40,6 @@ public class BresenhamCircle extends JPanel {
     }
 
     private void drawCirclePoints(Graphics g, int xc, int yc, int x, int y) {
-        // Draw all 8 symmetric points
         g.fillRect(xc + x, yc + y, 1, 1);
         g.fillRect(xc - x, yc + y, 1, 1);
         g.fillRect(xc + x, yc - y, 1, 1);
@@ -47,11 +51,31 @@ public class BresenhamCircle extends JPanel {
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Bresenham Circle Drawing");
-        BresenhamCircle panel = new BresenhamCircle();
-        frame.add(panel);
-        frame.setSize(500, 500);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nBresenham Circle Drawer");
+            System.out.println("1. Draw  circle");
+            System.out.println("2. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            if (choice == 2) {
+                System.out.println("Exiting...");
+                break;
+            }
+
+            System.out.print("Enter the radius of the circle: ");
+            int radius = scanner.nextInt();
+
+            JFrame frame = new JFrame("Bresenham Circle Drawing");
+            BresenhamCircle panel = new BresenhamCircle(radius);
+            frame.add(panel);
+            frame.setSize(550, 550);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setVisible(true);
+        }
+
+        scanner.close();
     }
 }
